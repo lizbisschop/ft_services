@@ -22,7 +22,12 @@ RUN mkdir -p /run/nginx
 RUN ssh-keygen -A
 RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
 
+# add ssh user & config
+RUN addgroup ssh && adduser -DH -G ssh test && \
+	echo "test:test" | chpasswd && \
+	ssh-keygen -A
+COPY srcs/sshd_config /etc/ssh/sshd_config
 
 EXPOSE 80 443 22
 
-CMD ["nginx", "-g","daemon off;"]
+CMD bash start.sh
