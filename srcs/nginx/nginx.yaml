@@ -15,7 +15,6 @@ spec:
     port: 22
     targetPort: 22
   selector:
-    app: myappp
     name: nginx
 #document start
 ---
@@ -24,13 +23,12 @@ kind: Deployment
 metadata:
   name: nginx
   labels:
-    app: nginx
+    name: nginx
 spec:
   template:
     metadata:
       name: nginx
       labels:
-        app: myapp
         name: nginx
     spec:
       containers:
@@ -40,5 +38,4 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: myapp
       name: nginx
