@@ -23,9 +23,6 @@
 # RUN tar -xzvf latest.tar.gz --strip-components=1 -C /www/wordpress
 # COPY wp-config.php ./www/
 
-
-
-
 # EXPOSE 5050
 
 # CMD php-fpm7 && ["nginx", "-g", "daemon off;"]

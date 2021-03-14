@@ -5,12 +5,13 @@ metadata:
   labels:
     app: wordpress
 spec:
+  type: clusterIP
   ports:
     - port: 3306
   selector:
     app: wordpress
     tier: mysql
-  clusterIP: None
+  # clusterIP: None
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

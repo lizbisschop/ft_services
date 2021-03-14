@@ -1,23 +1,21 @@
+# Using official alpine image as a parent image
 FROM alpine:3.12
 
-LABEL maintainer lbisscho
+# Getting the updates for alpine
+RUN apk update
 
-ENV MYSQL_ROOT_PASSWORD=admin
-ENV MYSQL_DATABASE=wordpress
-ENV MYSQL_USER=admin
-ENV MYSQL_PASSWORD=admin
-
+# Adding new packages
 RUN apk add --no-cache mysql mysql-client
-RUN addgroup mysql mysql
 
-# RUN mkdir -p /tmp
-# COPY wordpress.sql /tmp/wordpress.sql
-# COPY my.cnf /etc/mysql/my.cnf
-# COPY init_1.sh /tmp/init_1.sh
-# COPY init_2.sh /tmp/init_2.sh
-# RUN chmod +x /tmp/init_1.sh
-# RUN chmod =x /tmp/init_2.sh
+# Create new user
+RUN adduser -D 'user' -g mysql
 
+# mysql config
+COPY my.cnf /etc/
+VOLUME /var/lib/mysql
+
+# The default port for the classic MySQL protocol
 EXPOSE 3306
 
-CMD sh /tmp/init.sh
+# Start program
+CMD	sh start.sh

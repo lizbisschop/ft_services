@@ -5,3 +5,27 @@ secretGenerator:
 resources:
   - ./mysql/mysql.yaml
   - ./wordpress/wordpress.yaml
+  - ./phpmyadmin/phpmyadmin.yaml
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: mysql-pass
+# type: Opaque
+# data:
+#   root-password: c3VwZXItc2VjcmV0LXBhc3N3b3Jk
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: mysql-pass
+# type: Opaque
+# data:
+#   userpass: bWFuZG8=
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: wordpress-secret
+# type: Opaque
+# data:
+#   WP_PASS: bWFuZG8=
