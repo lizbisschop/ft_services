@@ -29,3 +29,5 @@ kubectl apply -f ./srcs/wordpress/wordpress.yaml
 kubectl apply -f ./srcs/phpmyadmin/phpmyadmin.yaml
 
 kubectl get all
+
+#  kubectl exec deploy/nginx -- pkill nginx

@@ -1,5 +1,5 @@
 #!/bin/sh
-mysql_install_db --user=$MYSQL_USER --ldata=/var/lib/mysql
+mysql_install_db --user=grogu --ldata=/var/lib/mysql
 
 echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;" >> /init.sql
 echo "SET PASSWORD FOR '$MYSQL_USER'@'localhost'=PASSWORD('${MYSQL_USERPASS}');" >> /init.sql
@@ -9,7 +9,3 @@ echo "GRANT ALL ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_USERPASS' WITH
 echo "FLUSH PRIVILEGES;" >> /init.sql
 
 mysqld --console --init_file=/init.sql
-
-sed -i 's/skip-networking/#skip-networking/g' /etc/my.cnf.d/mariadb-server.cnf
-/usr/bin/mysql_install_db --user=admin --datadir="/var/lib/mysql"
-/usr/bin/mysqld_safe --datadir="/var/lib/mysql"

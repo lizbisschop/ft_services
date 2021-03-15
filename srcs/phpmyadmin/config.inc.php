@@ -32,7 +32,7 @@ $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
 
 $cfg['Servers'][$i]['port'] = '3306';
-$cfg['Servers'][$i]['user'] = 'grogu';
+$cfg['Servers'][$i]['user'] = 'admin';
 $cfg['Servers'][$i]['password'] = 'mando';
 
 

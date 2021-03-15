@@ -8,14 +8,15 @@ RUN apk update
 RUN apk add --no-cache mysql mysql-client
 
 # Create new user
-RUN adduser -D 'user' -g mysql
+RUN adduser -D 'admin' -g mysql
 
 # mysql config
 COPY my.cnf /etc/
+COPY start.sh .
 VOLUME /var/lib/mysql
 
 # The default port for the classic MySQL protocol
 EXPOSE 3306
 
 # Start program
-CMD	sh startup.sh
+CMD	sh start.sh
