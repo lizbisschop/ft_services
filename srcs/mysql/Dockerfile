@@ -18,4 +18,4 @@ VOLUME /var/lib/mysql
 EXPOSE 3306
 
 # Start program
-CMD	sh start.sh
+CMD	sh startup.sh

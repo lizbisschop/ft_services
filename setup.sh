@@ -22,7 +22,7 @@ docker build -t phpmyadmin ./srcs/phpmyadmin
 
 echo "CREATE DEPLOYMENT"
 # kubectl apply -k srcs/
-# kubectl apply -f ./srcs/secret.yaml
+kubectl apply -f ./srcs/secret.yaml
 kubectl apply -f ./srcs/nginx/nginx.yaml
 kubectl apply -f ./srcs/mysql/mysql.yaml
 kubectl apply -f ./srcs/wordpress/wordpress.yaml

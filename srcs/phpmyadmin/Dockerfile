@@ -29,8 +29,7 @@ RUN rm phpMyAdmin-${PMA_VERSION}-english.tar.gz
 # Copying the nginx configuration, phpmyadmin config file & start script.
 COPY nginx.conf /etc/nginx/
 COPY config.inc.php /www/
-
 EXPOSE 5000
 
 # Start program
-CMD sh ./start.sh
+CMD sh start.sh

@@ -1,5 +1,5 @@
 #!/bin/sh
-mysql_install_db --user=grogu --ldata=/var/lib/mysql
+mysql_install_db --user=admin --ldata=/var/lib/mysql
 
 echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;" >> /init.sql
 echo "SET PASSWORD FOR '$MYSQL_USER'@'localhost'=PASSWORD('${MYSQL_USERPASS}');" >> /init.sql
