@@ -36,7 +36,7 @@ RUN apk add --no-cache wget php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-
 # download wordpress
 RUN mkdir -p /usr/share/webapps/
 RUN wget -c https://wordpress.org/latest.tar.gz
-RUN tar -xzvf latest.tar.gz -C /usr/share/webapps/
+RUN tar -xzvf latest.tar.gz --strip-components=1 -C /usr/share/webapps/
 RUN rm latest.tar.gz
 
 # copy relevant file

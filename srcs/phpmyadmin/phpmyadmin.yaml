@@ -1,33 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    metallb.universe.tf/allow-shared-ip: shared
   name: phpmyadmin
   labels:
     app: phpmyadmin
 spec:
-  ports:
-    - port: 5000
-      targetPort: 5000
-      protocol: TCP
-      name: http
   selector:
     app: phpmyadmin
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+      protocol: TCP
   type: LoadBalancer
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: phpmyadmin-pv-claim
-  labels:
-    app: phpmyadmin
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Gi
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -47,8 +33,8 @@ spec:
     spec:
       containers:
       - name: phpmyadmin
-        image: phpmyadmin
-        # imagePullPolicy: Never
+        image: phpmyadmin:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 5000
         env:
@@ -56,10 +42,9 @@ spec:
           value: mysql
         - name: PMA_PORT
           value: "3306"
-        - name: MYSQL_USER
-          value: user
         - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: password
+          value: admin
+        - name: MYSQL_USER
+          value: admin
+        - name: MYSQL_PASSWORD
+          value: admin

@@ -9,8 +9,9 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - 192.168.99.200-192.168.99.200
+      - 192.168.99.220-192.168.99.220
 # IP for home 192.168.99.100
 # Ip for Codam 185.61.55.68
 #dig +short myip.opendns.com @resolver1.opendns.com
+# Change IP sometimes to make it work
       

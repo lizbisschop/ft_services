@@ -8,6 +8,8 @@ kubectl delete service --all
 kubectl delete pvc --all
 kubectl delete secret --all
 
+# minikube delete
+
 
 # docker system prune -a
 
