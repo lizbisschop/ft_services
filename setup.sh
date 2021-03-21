@@ -21,8 +21,8 @@ eval $(minikube docker-env)
 kubectl apply -f ./srcs/secret.yaml
 echo "BUILDING IMAGES"
 # docker build -t nginx ./srcs/nginx
-# docker build -t mysql ./srcs/mysql
-# docker build -t wordpress ./srcs/wordpress
+docker build -t mysql ./srcs/mysql
+docker build -t wordpress ./srcs/wordpress
 # docker build -t phpmyadmin ./srcs/phpmyadmin
 
 echo "CREATE DEPLOYMENT"
