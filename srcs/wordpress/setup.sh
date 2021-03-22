@@ -17,7 +17,7 @@ do
     sleep 10
 done
 ​
-wp core install --title=Wordpress --admin_user=ivy --admin_password=Fluffy --admin_email=ivan-tol@student.codam.nl --skip-email --url=192.168.99.220:5050
+wp core install --title=Wordpress --admin_user=ivy --admin_password=Fluffy --admin_email=ivan-tol@student.codam.nl --skip-email --url=192.168.99.210:5050
 ​
 wp user create ingmar ikole@student.codam.nl --user_pass=fluffclub 
 wp user create mark mpeerdem@student.codam.nl --user_pass=vla 
