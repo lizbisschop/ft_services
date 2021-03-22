@@ -9,6 +9,8 @@ RUN apk add --no-cache mysql mysql-client gettext
 
 RUN mkdir -p /var/run/mysqld
 
+
+RUN addgroup mysql mysql
 # Create new user
 RUN adduser -D 'admin' -g mysql
 RUN chmod 0775 /var/lib/mysql
