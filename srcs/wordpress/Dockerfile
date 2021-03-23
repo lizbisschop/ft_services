@@ -44,7 +44,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /run/nginx
 
 # copy relevant file
-COPY wp-config.php /usr/share/webapps/wordpress/wp-config.php
+COPY wp-config.php /usr/share/webapps/wp-config.php
+# COPY /usr/share/webapps/index.php /usr/share/webapps/wordpress
 COPY start.sh .
 RUN chmod +x ./start.sh
 

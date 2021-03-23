@@ -51,11 +51,11 @@ spec:
         imagePullPolicy: Never
         env:
         - name: DB_NAME
-          value: wordpress
+          value: mysql
         - name: DB_USER
-          value: ivy
+          value: mysql
         - name: DB_PASS
-          value: Fluffy
+          value: mysql
         ports:
         - containerPort: 3306
           name: mysql
