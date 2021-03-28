@@ -29,8 +29,8 @@ $i++;
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 $cfg['TempDir'] = '/tmp';
 /* Server parameters */
-$cfg['Servers'][$i]['user'] = 'mysql';
-$cfg['Servers'][$i]['password'] = 'admin';
+$cfg['Servers'][$i]['user'] = 'lbisscho';
+$cfg['Servers'][$i]['password'] = 'password';
 $cfg['Servers'][$i]['port'] = '3306';
 
 $cfg['Servers'][$i]['host'] = 'mysql';

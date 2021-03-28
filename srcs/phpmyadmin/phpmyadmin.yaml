@@ -30,6 +30,9 @@ spec:
       - name: phpmyadmin
         image: phpmyadmin
         imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+          name: phpmyadmin
   replicas: 1
   selector:
     matchLabels:

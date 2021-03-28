@@ -23,24 +23,24 @@
 define('DB_NAME', 'wordpress');
 
 /** MySQL database username */
-define('DB_USER', 'mysql');
+define('DB_USER', 'lbisscho');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'admin');
+define('DB_PASSWORD', 'password');
 
 /** MySQL hostname */
-define('WORDPRESS_DB_HOST', 'mysql');
+define('DB_HOST', 'mysql');
 
 /** Database Charset to use in creating database tables. */
-define('DB_CHARSET', 'utf8mb4');
+define('DB_CHARSET', 'utf8');
 
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
 // define('WP_HOME', 'http://${WORDPRESS_SVC_SERVICE_HOST}:${WORDPRESS_SVC_SERVICE_PORT}' );
 // define('WP_SITEURL', 'http://${WORDPRESS_SVC_SERVICE_HOST}:${WORDPRESS_SVC_SERVICE_PORT}' );
-define('WP_HOME', 'http://192.168.99.210:5050' );
-define('WP_SITEURL', 'http://192.168.99.210:5050' );
+// define('WP_HOME', 'http://192.168.99.210:5050' );
+// define('WP_SITEURL', 'http://192.168.99.210:5050' );
 
 /**#@+
  * Authentication Unique Keys and Salts.

@@ -33,6 +33,9 @@ RUN wget -c https://wordpress.org/latest.tar.gz
 RUN tar -xzvf latest.tar.gz --strip-components=1 -C /usr/share/webapps/
 RUN rm latest.tar.gz
 
+# COPY	/srcs/php-fpm.conf /etc/php7/php-fpm.conf
+
+
 # #ADD USER NGINX
 RUN adduser -D -g 'www' www
 RUN mkdir /www 
