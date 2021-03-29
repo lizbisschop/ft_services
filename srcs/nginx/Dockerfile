@@ -1,6 +1,6 @@
 FROM alpine:3.12
 
-LABEL maintainer lbisscho
+LABEL maintainer mysql
 
 RUN apk update
 RUN apk upgrade

@@ -1,6 +1,5 @@
 # FROM alpine:3.12
 
-# LABEL maintainer lbisscho
 
 # RUN apk update
 # RUN apk upgrade
@@ -21,8 +20,6 @@
 # CMD php-fpm7 && ["nginx", "-g", "daemon off;"]
 
 FROM alpine:3.12
-
-LABEL maintainer lbisscho
 
 RUN apk add --no-cache wget php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session
 RUN apk add nginx

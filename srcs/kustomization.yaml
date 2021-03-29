@@ -1,5 +1,5 @@
 secretGenerator:
-- name: mysql-pass
+- name: secret
   literals:
   - password=password
 resources:
@@ -10,14 +10,14 @@ resources:
 # apiVersion: v1
 # kind: Secret
 # metadata:
-#   name: mysql-pass
+#   name: secret
 # type: Opaque
 # data:
 #   root-password: c3VwZXItc2VjcmV0LXBhc3N3b3Jk
 # apiVersion: v1
 # kind: Secret
 # metadata:
-#   name: mysql-pass
+#   name: secret
 # type: Opaque
 # data:
 #   userpass: bWFuZG8=

@@ -27,10 +27,14 @@ docker build -t phpmyadmin ./srcs/phpmyadmin
 
 echo "CREATE DEPLOYMENT"
 # kubectl apply -k srcs/
+
 kubectl apply -f ./srcs/nginx/nginx.yaml
 kubectl apply -f ./srcs/mysql2/mysql.yaml
 kubectl apply -f ./srcs/wordpress/wordpress.yaml
 kubectl apply -f ./srcs/phpmyadmin/phpmyadmin.yaml
+# kubectl apply -f ./srcs/influxdb/influxdb.yaml
+# kubectl apply -f ./srcs/telegraf/telegraf.yaml
+# kubectl apply -f ./srcs/grafana/grafana.yaml
 
 kubectl get all
 

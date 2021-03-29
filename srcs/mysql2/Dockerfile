@@ -5,6 +5,7 @@ RUN apk update && \
 	apk add mysql-client
 
 RUN addgroup mysql mysql
+# RUN adduser -D 'mysql' -g mysql
 
 # Copy files to container
 COPY my.cnf /etc/my.cnf
