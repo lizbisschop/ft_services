@@ -10,6 +10,7 @@ RUN addgroup mysql mysql
 # Copy files to container
 COPY my.cnf /etc/my.cnf
 COPY setup.sh /tmp/setup.sh
+# COPY ../mysql/create_tables /tmp/
 
 # Set premission to executable
 RUN chmod +x /tmp/setup.sh

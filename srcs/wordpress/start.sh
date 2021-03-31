@@ -1,10 +1,12 @@
 #!/bin/bash
 
-php -S 0.0.0.0:5050 -t /usr/share/webapps/
+php -S 0.0.0.0:5050 -t /usr/share/webapps
 
 #!/bin/sh
 
 # cd /www
+
+# php-fpm7
 
 # # if ! $(wp core is-installed); then
 #     wp core download
@@ -17,3 +19,5 @@ php -S 0.0.0.0:5050 -t /usr/share/webapps/
 #     # wp user create britt bsomers@student.codam.nl --user_pass=brittpass --role=author
 #     chown -R www:www /www
 # # fi
+
+# nginx -g "daemon off;"

@@ -43,8 +43,18 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # COPY index.html /www
 RUN mkdir -p /run/nginx
 
+# RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+# RUN chmod +x wp-cli.phar  && \
+# 	mv wp-cli.phar /usr/local/bin/wp && \
+# 	wp core download --allow-root && \
+# 	service mysql restart && \
+# 	mysql < var/www/html/wordpress/phpmyadmin/sql/create_tables.sql && \
+#     wp core install --allow-root --url=192.168.99.210:5050 --title=ft_sevices --admin_user=mysql --admin_password=password \ 
+# 	--admin_email=mysql@student.codam.nl --skip-email
+
 # copy relevant file
 COPY wp-config.php /usr/share/webapps/wp-config.php
+# COPY wp-config.php /www
 # COPY /usr/share/webapps/index.php /usr/share/webapps/wordpress
 COPY start.sh .
 RUN chmod +x ./start.sh
