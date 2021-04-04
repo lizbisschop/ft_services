@@ -43,9 +43,10 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # COPY index.html /www
 RUN mkdir -p /run/nginx
 
-# RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-# RUN chmod +x wp-cli.phar  && \
-# 	mv wp-cli.phar /usr/local/bin/wp && \
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar  && \
+	mv wp-cli.phar /usr/local/bin/wp
+RUN php wp-cli.phar
 # 	wp core download --allow-root && \
 # 	service mysql restart && \
 # 	mysql < var/www/html/wordpress/phpmyadmin/sql/create_tables.sql && \
