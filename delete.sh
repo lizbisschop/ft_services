@@ -7,7 +7,7 @@ kubectl delete service --all
 kubectl delete pods --all
 kubectl delete pvc --all
 kubectl delete secret --all
-minikube delete
+# minikube delete
 
 # minikube delete
 

@@ -1,0 +1,1 @@
+influxdb run -config /etc/influxdb/influxdb.conf

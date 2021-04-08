@@ -29,7 +29,7 @@ $i++;
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 $cfg['TempDir'] = '/tmp';
 /* Server parameters */
-$cfg['Servers'][$i]['user'] = 'mysql';
+$cfg['Servers'][$i]['user'] = 'lbisscho';
 $cfg['Servers'][$i]['password'] = 'password';
 $cfg['Servers'][$i]['port'] = '3306';
 
@@ -78,6 +78,8 @@ $cfg['Servers'][$i]['export_templates'] = 'pma__export_templates';
  */
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
+
+$cfg['PmaNoRelation_DisableWarning'] = TRUE;
 
 /**
  * Whether to display icons or text or both icons and text in table row
@@ -157,8 +159,3 @@ $cfg['SaveDir'] = '';
  * You can find more configuration options in the documentation
  * in the doc/ folder or at <https://docs.phpmyadmin.net/>.
  */
-
-
-#silence warning
-$cfg['PmaNoRelation_DisableWarning'] = TRUE;
-

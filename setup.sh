@@ -25,6 +25,7 @@ docker build -t nginx ./srcs/nginx
 docker build -t mysql ./srcs/mysql2
 docker build -t phpmyadmin ./srcs/phpmyadmin
 docker build -t wordpress ./srcs/wordpress
+docker build -t influxdb ./srcs/influxdb
 
 echo "CREATE DEPLOYMENT"
 # kubectl apply -k srcs/
@@ -33,7 +34,7 @@ kubectl apply -f ./srcs/nginx/nginx.yaml
 kubectl apply -f ./srcs/mysql2/mysql.yaml
 kubectl apply -f ./srcs/phpmyadmin/phpmyadmin.yaml
 kubectl apply -f ./srcs/wordpress/wordpress.yaml
-# kubectl apply -f ./srcs/influxdb/influxdb.yaml
+kubectl apply -f ./srcs/influxdb/influxdb.yaml
 # kubectl apply -f ./srcs/telegraf/telegraf.yaml
 # kubectl apply -f ./srcs/grafana/grafana.yaml
 
