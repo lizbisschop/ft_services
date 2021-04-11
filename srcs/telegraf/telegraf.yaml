@@ -1,70 +1,55 @@
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   annotations:
-#     metallb.universe.tf/allow-shared-ip: shared
-#   name: wordpress
-#   labels:
-#     app: wordpress
-# spec:
-#   ports:
-#     - port: 5050
-#   selector:
-#     app: wordpress
-#     tier: frontend
-#   type: LoadBalancer
-# ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: telegraf-config
-data:
-  telegraf.conf: |+
-    [[outputs.influxdb]]
-      urls = ["http://influxdb:8086"]
-      database = "local_monitoring"
-      username = "root"
-      password = "root123"
-    [[inputs.statsd]]
-      max_tcp_connections = 250
-      tcp_keep_alive = false
-      service_address = ":8125"
-      delete_gauges = true
-      delete_counters = true
-      delete_sets = true
-      delete_timings = true
-      metric_separator = "."
-      allowed_pending_messages = 10000
-      percentile_limit = 1000
-      parse_data_dog_tags = true 
-      read_buffer_size = 65535
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: telegraf
+  labels:
+    app: telegraf
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: telegraf
-  minReadySeconds: 5
   template:
     metadata:
       labels:
         app: telegraf
     spec:
+      serviceAccount: lbisscho
       containers:
-        - image: telegraf:1.10.0
-          name: telegraf
-          envFrom:
-            - secretRef:
-                name: secret
-          volumeMounts:
-            - name: telegraf-config-volume
-              mountPath: /etc/telegraf/telegraf.conf
-              subPath: telegraf.conf
-              readOnly: true
-      volumes:
-        - name: telegraf-config-volume
-          configMap:
-            name: telegraf-config
+      - name: telegraf
+        image: my_telegraf
+        imagePullPolicy: Never
+        env:
+          - name: INFLUXDB_USER
+            value: lbisscho         
+          - name: INFLUXDB_PASSWORD
+            value: password
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+    name: lbisscho
+    namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: telegraf-role
+rules: 
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["daemonsets", "deployments", "endpoints", "ingresses", "nodes", "nodes/proxy","persistentvolumes", "persistentvolumeclaims", "pods", "services", "statefulsets"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: telegraf-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: telegraf-role
+subjects:
+- kind: ServiceAccount
+  name: lbisscho
+  namespace: default

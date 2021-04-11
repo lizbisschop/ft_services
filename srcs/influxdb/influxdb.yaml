@@ -1,6 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+      metallb.universe.tf/allow-shared-ip: shared
   name: influxdb
   labels:
     app: influxdb
@@ -17,8 +19,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  annotations:
-      metallb.universe.tf/allow-shared-ip: shared
   name: influxdb-pvc
   labels:
     app: influxdb
@@ -32,51 +32,31 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: monitoring
-  annotations:
-  creationTimestamp: null
-  generation: 1
+  name: influxdb
   labels:
     app: influxdb
-  name: influxdb
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: influxdb
   strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: influxdb
     spec:
       containers:
-      - envFrom:
-        - secretRef:
-            name: secret
+      - name: influxdb
         image: influxdb
         imagePullPolicy: Never
-        name: influxdb
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
+        ports:
+        - containerPort: 8086
         volumeMounts:
-        - mountPath: /var/lib/influxdb
-          name: var-lib-influxdb
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
+        - name: influxdb-persistent-storage
+          mountPath: /var/lib/influxdb
       volumes:
-      - name: var-lib-influxdb
+      - name: influxdb-persistent-storage
         persistentVolumeClaim:
           claimName: influxdb-pvc
----

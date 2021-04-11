@@ -17,7 +17,7 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 kubectl apply -f ./srcs/metallb/metallb_conf.yaml
 eval $(minikube docker-env)
 
-
+echo "BUILDING SECRETS"
 kubectl apply -f ./srcs/secret.yaml
 
 echo "BUILDING IMAGES"
@@ -26,16 +26,16 @@ docker build -t mysql ./srcs/mysql2
 docker build -t phpmyadmin ./srcs/phpmyadmin
 docker build -t wordpress ./srcs/wordpress
 docker build -t influxdb ./srcs/influxdb
+docker build -t telegraf ./srcs/telegraf
 
 echo "CREATE DEPLOYMENT"
-# kubectl apply -k srcs/
 
 kubectl apply -f ./srcs/nginx/nginx.yaml
 kubectl apply -f ./srcs/mysql2/mysql.yaml
 kubectl apply -f ./srcs/phpmyadmin/phpmyadmin.yaml
 kubectl apply -f ./srcs/wordpress/wordpress.yaml
 kubectl apply -f ./srcs/influxdb/influxdb.yaml
-# kubectl apply -f ./srcs/telegraf/telegraf.yaml
+kubectl apply -f ./srcs/telegraf/telegraf.yaml
 # kubectl apply -f ./srcs/grafana/grafana.yaml
 
 kubectl get all
