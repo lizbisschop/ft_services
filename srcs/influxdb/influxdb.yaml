@@ -4,14 +4,12 @@ metadata:
   annotations:
       metallb.universe.tf/allow-shared-ip: shared
   name: influxdb
-  labels:
-    app: influxdb
 spec:
   ports:
-    - port: 8086
-      targetPort: 8086
-      protocol: TCP
-      name: influxdb
+  - port: 8086
+    name: influxdb
+    protocol: TCP
+    targetPort: 8086
   selector:
     app: influxdb
   type: ClusterIP
@@ -19,12 +17,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: influxdb-pvc
+  name: influxdb-pv-claim
   labels:
     app: influxdb
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
@@ -53,10 +51,11 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8086
+          name: influxdb
         volumeMounts:
         - name: influxdb-persistent-storage
           mountPath: /var/lib/influxdb
       volumes:
       - name: influxdb-persistent-storage
         persistentVolumeClaim:
-          claimName: influxdb-pvc
+          claimName: influxdb-pv-claim

@@ -17,39 +17,14 @@ spec:
       serviceAccount: lbisscho
       containers:
       - name: telegraf
-        image: my_telegraf
+        image: telegraf
         imagePullPolicy: Never
-        env:
-          - name: INFLUXDB_USER
-            value: lbisscho         
-          - name: INFLUXDB_PASSWORD
-            value: password
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-    name: lbisscho
-    namespace: default
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: telegraf-role
-rules: 
-- apiGroups: ["", "extensions", "apps"]
-  resources: ["daemonsets", "deployments", "endpoints", "ingresses", "nodes", "nodes/proxy","persistentvolumes", "persistentvolumeclaims", "pods", "services", "statefulsets"]
-  verbs: ["get", "watch", "list"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: telegraf-binding
-  namespace: default
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: telegraf-role
-subjects:
-- kind: ServiceAccount
-  name: lbisscho
-  namespace: default
+        ports:
+        - containerPort: 8125
+          name: telegraf
+          protocol: TCP
+        # env:
+        #   - name: INFLUXDB_USER
+        #     value: lbisscho         
+        #   - name: INFLUXDB_PASSWORD
+        #     value: password

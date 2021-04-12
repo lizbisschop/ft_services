@@ -27,6 +27,7 @@ docker build -t phpmyadmin ./srcs/phpmyadmin
 docker build -t wordpress ./srcs/wordpress
 docker build -t influxdb ./srcs/influxdb
 docker build -t telegraf ./srcs/telegraf
+docker build -t grafana ./srcs/grafana
 
 echo "CREATE DEPLOYMENT"
 
@@ -36,7 +37,7 @@ kubectl apply -f ./srcs/phpmyadmin/phpmyadmin.yaml
 kubectl apply -f ./srcs/wordpress/wordpress.yaml
 kubectl apply -f ./srcs/influxdb/influxdb.yaml
 kubectl apply -f ./srcs/telegraf/telegraf.yaml
-# kubectl apply -f ./srcs/grafana/grafana.yaml
+kubectl apply -f ./srcs/grafana/grafana.yaml
 
 kubectl get all
 
