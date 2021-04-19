@@ -1,31 +1,23 @@
-# Using official alpine image as a parent image
 FROM alpine:3.12
 
-# Getting the updates for alpine
-RUN apk update
+RUN apk update && \
+	apk add mysql && \
+	apk add mysql-client
 
-# Adding new packages
-RUN apk add --no-cache mysql mysql-client gettext
+RUN addgroup mysql mysql
+# RUN adduser -D 'mysql' -g mysql
 
-RUN mkdir -p /var/run/mysqld
+# Copy files to container
+COPY my.cnf /etc/my.cnf
+COPY setup.sh /tmp/setup.sh
+# COPY ../mysql/create_tables /tmp/
 
-# RUN addgroup mysql mysql
-# Create new user
-RUN adduser -D 'admin' -g mysql
-RUN chmod 0775 /var/lib/mysql
-RUN chown mysql:mysql /var/run/mysqld
+# Set premission to executable
+RUN chmod +x /tmp/setup.sh
 
-
-# mysql config
-COPY my.cnf /tmp/ 
-RUN envsubst ${MYSQL_USER} ${MYSQL_PASSWORD} < /tmp/my.cnf > /etc/my.cnf
-COPY my.cnf /etc/
-# COPY start.sh .
-COPY create_tables.sql /tmp
 VOLUME /var/lib/mysql
 
-# The default port for the classic MySQL protocol
+# Open port
 EXPOSE 3306
 
-# Start program
-CMD	sh start.sh
+ENTRYPOINT ["/bin/sh", "/tmp/setup.sh"]

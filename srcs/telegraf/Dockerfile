@@ -7,6 +7,7 @@ RUN apk update && \
 RUN apk add --no-cache wget
 
 RUN mkdir /etc/telegraf
+
 #downloading telegraf
 RUN wget -nv https://dl.influxdata.com/telegraf/releases/telegraf-1.17.2_static_linux_amd64.tar.gz && \
     tar -xf telegraf-1.17.2_static_linux_amd64.tar.gz --strip-components=2 -C . && \
