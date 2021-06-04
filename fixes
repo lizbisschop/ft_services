@@ -1,0 +1,8 @@
+THINGS TO STILL BE FIXED ON SERVICES
+
+[] reverse proxy phpmyadmin, error code 404 not found
+[] ssl is not being used, phpmyadmin
+[] multiple users in wordpress
+[] when deleting deployment it works fine in terminal not in dashboard
+[] influxdb is not CLusterIP
+[] can't delete influxdb and stuff

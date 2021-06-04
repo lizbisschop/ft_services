@@ -1,6 +1,3 @@
-#colors
-# red='\033[0;31m'
-
 minikube start --vm-driver=virtualbox --disk-size=5GB
 minikube addons enable metallb
 minikube addons enable dashboard
@@ -14,20 +11,25 @@ sleep 3
 # On first install only
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
+# create serviceaccount
+kubectl create serviceaccount lbisscho
+kubectl apply -f srcs/serviceaccount.yaml
+
 kubectl apply -f ./srcs/metallb/metallb_conf.yaml
 eval $(minikube docker-env)
 
-echo "BUILDING SECRETS"
-kubectl apply -f ./srcs/secret.yaml
+# echo "BUILDING SECRETS"
+# kubectl apply -f ./srcs/secret.yaml
 
 echo "BUILDING IMAGES"
 docker build -t nginx ./srcs/nginx
 docker build -t mysql ./srcs/mysql
 docker build -t phpmyadmin ./srcs/phpmyadmin
 docker build -t wordpress ./srcs/wordpress
-docker build -t influxdb ./srcs/influxdb
+docker build -t influxDB ./srcs/influxdb
 docker build -t telegraf ./srcs/telegraf
 docker build -t grafana ./srcs/grafana
+docker build -t ftps ./srcs/ftps
 
 echo "CREATE DEPLOYMENT"
 
@@ -38,6 +40,7 @@ kubectl apply -f ./srcs/wordpress/wordpress.yaml
 kubectl apply -f ./srcs/influxdb/influxdb.yaml
 kubectl apply -f ./srcs/telegraf/telegraf.yaml
 kubectl apply -f ./srcs/grafana/grafana.yaml
+kubectl apply -f ./srcs/ftps/ftps.yaml
 
 kubectl get all
 

@@ -40,8 +40,8 @@ RUN mkdir -p var/run/nginx
 
 # download wordpress
 # RUN mkdir -p /usr/share/webapps/
-RUN wget -c https://wordpress.org/latest.tar.gz
-RUN tar -xzvf latest.tar.gz --strip-components=1 -C /www/
+RUN wget -c https://wordpress.org/wordpress-5.5.3.tar.gz
+RUN tar -xzvf wordpress-5.5.3.tar.gz --strip-components=1 -C /www/
 # RUN rm latest.tar.gz 
 
 # COPY	/srcs/php-fpm.conf /etc/php7/php-fpm.conf
