@@ -6,3 +6,11 @@ THINGS TO STILL BE FIXED ON SERVICES
 [] when deleting deployment it works fine in terminal not in dashboard
 [] influxdb is not CLusterIP
 [] can't delete influxdb and stuff
+[] there is a miss match between https indicated on the server and client. (PHPmyadmin)
+
+[]How to check for ftps instead of ftp
+[] upload files without any errors
+[] do ou have to be able to delete all deployments
+[] which one to delete when testing if the database stays the same
+[] after deleting influxdb safe the information that was already ther in grafana
+[] deleting some gives terminated with exit code 1

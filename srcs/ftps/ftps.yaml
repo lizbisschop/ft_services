@@ -1,85 +1,26 @@
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   annotations:
-#       metallb.universe.tf/allow-shared-ip: shared
-#   name: ftps
-#   labels:
-#       app: ftps
-# spec:
-#   ports:
-#   - port: 20
-#     targetPort: 20
-#     protocol: TCP
-#     name: port-20
-#   - port: 21
-#     targetPort: 21
-#     protocol: TCP
-#     name: port-21
-#   - port: 30000
-#     targetPort: 30000
-#     protocol: TCP
-#     name: port-30000
-#   selector:
-#     app: ftps
-#   type: LoadBalancer
-# ---
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: ftps
-#   labels:
-#     app: ftps
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: ftps
-#   template:
-#     metadata:
-#       labels:
-#         app: ftps
-#     spec:
-#       containers:
-#       - name: ftps
-#         image: ftps
-#         imagePullPolicy: Never
-#         ports:
-#         - containerPort: 20
-#         - containerPort: 21
-#         - containerPort: 30000
 apiVersion: v1
 kind: Service
 metadata:
   annotations:
-      metallb.universe.tf/allow-shared-ip: shared
+    metallb.universe.tf/allow-shared-ip: shared
   name: ftps
   labels:
-    app: ftps
+    app: ftps  
 spec:
   type: LoadBalancer
   ports:
-    - port: 21
-      targetPort: 21
-      protocol: TCP
-      name: ftps
-    - port: 20
-      targetPort: 20
-      protocol: TCP
-      name: active
-    - port: 21000
-      targetPort: 21000
-      protocol: TCP
-      name: passive-00
-    - port: 21001
-      targetPort: 21001
-      protocol: TCP
-      name: passive-01
-    - port: 21002
-      targetPort: 21002
-      protocol: TCP
-      name: passive-02
+  - name: ftps-data
+    port: 20
+    targetPort: 20
+    protocol: TCP
+  - name: ftps-control
+    port: 21
+    targetPort: 21
+    protocol: TCP
+  - name: ftps-passive
+    port: 21000
+    protocol: TCP
+    targetPort: 21000
   selector:
     app: ftps
 ---
@@ -90,7 +31,8 @@ metadata:
   labels:
     app: ftps
 spec:
-  replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: ftps
@@ -100,28 +42,33 @@ spec:
         app: ftps
     spec:
       containers:
-      - name: ftps
-        image: ftps
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 21
-          protocol: TCP
-        - containerPort: 20
-          protocol: TCP
-        - containerPort: 21000
-          protocol: TCP
-        - containerPort: 21001
-          protocol: TCP
-        - containerPort: 21002
-          protocol: TCP
-        env:
-        - name: FTP_USER
-          value: "lbisscho"
-        - name: FTP_PASS
-          value: "password"
-        - name: PASV_ADDRESS
-          value: "192.168.99.201"
-        - name: PASV_MIN_PORT
-          value: "21000"
-        - name: PASV_MAX_PORT
-          value: "21002"
+        - name: ftps
+          image: ftps
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 20
+            name: ftps-data 
+          - containerPort: 21
+            name: ftps-control
+          - containerPort: 21000
+            name: ftps-passive
+          volumeMounts:
+            - name: var-ftps
+              mountPath: var/ftps
+      volumes:
+        - name: var-ftps
+          persistentVolumeClaim:
+            claimName: ftps
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ftps
+  labels:
+    app: ftps
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

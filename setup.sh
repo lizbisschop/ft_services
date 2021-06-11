@@ -26,7 +26,7 @@ docker build -t nginx ./srcs/nginx
 docker build -t mysql ./srcs/mysql
 docker build -t phpmyadmin ./srcs/phpmyadmin
 docker build -t wordpress ./srcs/wordpress
-docker build -t influxDB ./srcs/influxdb
+docker build -t influxdb ./srcs/influxdb
 docker build -t telegraf ./srcs/telegraf
 docker build -t grafana ./srcs/grafana
 docker build -t ftps ./srcs/ftps
@@ -41,6 +41,7 @@ kubectl apply -f ./srcs/influxdb/influxdb.yaml
 kubectl apply -f ./srcs/telegraf/telegraf.yaml
 kubectl apply -f ./srcs/grafana/grafana.yaml
 kubectl apply -f ./srcs/ftps/ftps.yaml
+
 
 kubectl get all
 
